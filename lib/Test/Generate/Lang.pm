@@ -1,60 +1,27 @@
-package Test::Generate;
-use 5.006;
+package Test::Generate::Lang;
 use strict;
-use warnings FATAL => 'all';
-our $VERSION = '0.01';
+use warnings;
 
-use JSON;
-use Test::Generate::Lang;
+use Test::Generate::Lang::Perl;
 
-sub new {
-    my $class = shift;
-    my $self  = bless {@_}, $class;
-    return $self;
+sub _generate {
+    my $lang = shift;
+
+    if ($lang eq 'Perl') {
+        return Test::Generate::Lang::Perl::_generate( @_ );
+    }
 }
 
-sub generate {
-    my $self = shift;
-    my %args = @_;
+1;
 
-    return Test::Generate::Lang::_generate(
-        ucfirst( lc( $args{lang} ) ),
-        decode_json( $args{input} ),
-    );
-}
-
-__END__
 =head1 NAME
 
-Test::Generate - Just another unit test generator.
-
-=head1 SYNOPSIS
-
-  use Test::Generate;
+Test::Generate::Lang;
 
 =head1 DESCRIPTION
 
-This module will make unit tests, yo.
+Base class for language templates.
 
-=head1 METHODS
-
-=over 4
-
-=item * C<new()>
-
-Constructs object.
-
-=item * C<generate( input => $json )>
-
-Generates tests.
-
-=back
-
-=head1 EXAMPLE
-
-The following will demonstrate, yo.
-
-  use Test::Generate;
 
 =head1 AUTHOR
 
@@ -62,7 +29,7 @@ Jeff Anderson, C<< <jeffa at cpan.org> >>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2017 Jeff Anderson.
+Copyright 2016 Jeff Anderson.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a
@@ -101,3 +68,5 @@ CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THE PACKAGE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
+
+__DATA__

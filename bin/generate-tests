@@ -9,12 +9,14 @@ use Getopt::Long;
 use Data::Dumper;
 
 GetOptions (
+    'lang'      => \my $lang,
     'help'      => \my $help,
     'man'       => \my $man,
     'version'   => \my $version,
 );
 pod2usage( -verbose => 0 ) if defined $help;
 pod2usage( -verbose => 2 ) if $man;
+$lang ||= 'perl';
 
 if ($version) {
     print "Test::Generate path: " . $INC{'Test/Generate.pm'}, "\n";
@@ -24,7 +26,7 @@ if ($version) {
 my $generator = Test::Generate->new;
 my $json = do { local $/; <> };
 
-print Dumper $generator->generate( input => $json );
+print $generator->generate( input => $json, lang => $lang );
 
 __END__
 =head1 NAME

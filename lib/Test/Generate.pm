@@ -1,103 +1,49 @@
 package Test::Generate;
-
 use 5.006;
 use strict;
 use warnings FATAL => 'all';
-
-=head1 NAME
-
-Test::Generate - The great new Test::Generate!
-
-=head1 VERSION
-
-Version 0.01
-
-=cut
-
 our $VERSION = '0.01';
 
+sub new {
+
+}
+
+__END__
+=head1 NAME
+
+Test::Generate - Just another unit test generator.
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
+  use Test::Generate;
 
-Perhaps a little code snippet.
+=head1 DESCRIPTION
 
-    use Test::Generate;
+This module will make unit tests, yo.
 
-    my $foo = Test::Generate->new();
-    ...
-
-=head1 EXPORT
-
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
-
-=head1 SUBROUTINES/METHODS
-
-=head2 function1
-
-=cut
-
-sub function1 {
-}
-
-=head2 function2
-
-=cut
-
-sub function2 {
-}
-
-=head1 AUTHOR
-
-Jeffrey Hayes Anderson, C<< <jeffa at unlocalhost.com> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-test-generate at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=Test-Generate>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc Test::Generate
-
-
-You can also look for information at:
+=head1 METHODS
 
 =over 4
 
-=item * RT: CPAN's request tracker (report bugs here)
+=item * C<new()>
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Test-Generate>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/Test-Generate>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/Test-Generate>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/Test-Generate/>
+Constructs object.
 
 =back
 
+=head1 EXAMPLE
 
-=head1 ACKNOWLEDGEMENTS
+The following will demonstrate, yo.
 
+  use Test::Generate;
+
+=head1 AUTHOR
+
+Jeff Anderson, C<< <jeffa at cpan.org> >>
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright 2014 Jeffrey Hayes Anderson.
+Copyright 2017 Jeff Anderson.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of the the Artistic License (2.0). You may obtain a
@@ -135,7 +81,4 @@ CONTRIBUTOR WILL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, OR
 CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THE PACKAGE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 =cut
-
-1; # End of Test::Generate

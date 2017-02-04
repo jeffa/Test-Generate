@@ -4,8 +4,18 @@ use strict;
 use warnings FATAL => 'all';
 our $VERSION = '0.01';
 
-sub new {
+use JSON;
 
+sub new {
+    my $class = shift;
+    my $self  = bless {@_}, $class;
+    return $self;
+}
+
+sub generate {
+    my $self = shift;
+    my %args = @_;
+    return decode_json $args{input};
 }
 
 __END__
@@ -28,6 +38,10 @@ This module will make unit tests, yo.
 =item * C<new()>
 
 Constructs object.
+
+=item * C<generate( input => $json )>
+
+Generates tests.
 
 =back
 

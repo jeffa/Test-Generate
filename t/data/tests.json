@@ -1,0 +1,35 @@
+{ "01-run": {
+    "tests": 13,
+    "include": [ "Math::Window2Viewport" ],
+    "constructor": [
+        {
+            "variable": "mapper",
+            "args": [
+                {"Wb":0},
+                {"Wt":1},
+                {"Wl":0},
+                {"Wr":1},
+                {"Vb":9},
+                {"Vt":0},
+                {"Vl":0},
+                {"Vr":9}
+            ]
+        }
+    ],
+    "declare": [ "x", "y" ],
+    "roster": [
+        { "test": { } },
+        { "test": { } },
+        { "assign": {
+                "variable":"x",
+                "value":0
+        } },
+        { "assign": {
+                "variable":"y",
+                "value": {
+                    "function":"sin",
+                    "args": [ { "variable":"x" } ]
+                }
+        } }
+    ]
+}}

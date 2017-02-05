@@ -4,8 +4,22 @@ Just another unit test generator.
 
 Synopsis
 --------
+```
+# write to test file
+mktests --lang=perl < test.json > test.pl
+
+# feed back to interpreter for immediate test run
+mktests --lang=perl < test.json | perl -T
+```
+
+Backend API
+-----------
 ```perl
 use Test::Generate;
+
+$generator = Test::Generate->new;
+
+$tests = $generator->generate( input => $json, lang => $lang );
 ```
 
 use Math::Window2Viewport;

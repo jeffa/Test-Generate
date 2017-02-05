@@ -1,0 +1,88 @@
+#!/usr/bin/env perl 
+use strict;
+use warnings FATAL => 'all';
+use Test::Generate;
+
+use JSON;
+use Pod::Usage;
+use Getopt::Long;
+use Data::Dumper;
+
+GetOptions (
+    'lang'      => \my $lang,
+    'help'      => \my $help,
+    'man'       => \my $man,
+    'version'   => \my $version,
+);
+pod2usage( -verbose => 0 ) if defined $help;
+pod2usage( -verbose => 2 ) if $man;
+$lang ||= 'perl';
+
+if ($version) {
+    print "Test::Generate path: " . $INC{'Test/Generate.pm'}, "\n";
+    exit;
+}
+
+my $generator = Test::Generate->new;
+my $json = do { local $/; <> };
+
+print $generator->generate( input => $json, lang => $lang );
+
+__END__
+=head1 NAME
+
+mktests - generate unit tests.
+
+=head1 SYNOPSIS
+
+mktable method [options]
+
+ Options:
+   --lang       target language to write tests for
+   --help       list usage for methods and parameters
+   --man        print man page
+   --version    print version
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--lang>
+
+Target language to write tests for.
+
+=item B<--help>
+
+Shows basic usage.
+
+=item B<--man>
+
+Prints the manual page.
+
+=item B<--version>
+
+Prints the versions of the core modules used.
+
+=back
+
+=head1 EXAMPLES
+
+  # write to test file
+  mktests --lang=perl < test.json > test.pl
+
+  # feed back to interpreter for immediate test run
+  mktests --lang=perl < test.json | perl -T
+
+=head1 SEE ALSO
+
+=over 4
+
+=item L<Test::Generate>
+
+The engine behind this script.
+
+  perldoc Test::Generate
+
+=back
+
+=cut

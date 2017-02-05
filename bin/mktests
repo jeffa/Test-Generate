@@ -9,7 +9,7 @@ use Getopt::Long;
 use Data::Dumper;
 
 GetOptions (
-    'lang'      => \my $lang,
+    'lang=s'    => \my $lang,
     'help'      => \my $help,
     'man'       => \my $man,
     'version'   => \my $version,

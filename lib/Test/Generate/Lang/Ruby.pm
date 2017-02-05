@@ -1,30 +1,60 @@
-package Test::Generate::Lang;
+package Test::Generate::Lang::Ruby;
 use strict;
 use warnings;
-
-use Test::Generate::Lang::Perl;
-use Test::Generate::Lang::Ruby;
+use base 'Test::Generate::Lang';
+use Text::Template;
 
 sub _generate {
-    my $lang = shift;
+    my $data = shift;
+    ($data->{require}  = $data->{class}{name}) =~ s/::/\//g;
+    ($data->{testname} = $data->{class}{name}) =~ s/:://g;
 
-    if ($lang eq 'Perl') {
-        return Test::Generate::Lang::Perl::_generate( @_ );
-    } elsif ($lang eq 'Ruby') {
-        return Test::Generate::Lang::Ruby::_generate( @_ );
-    }
+    my $tmpl = Text::Template->new( TYPE => 'STRING', SOURCE => _test_template() );
+    return $tmpl->fill_in( HASH => $data );
+}
+
+
+sub _test_template {
+return q^
+require "test/unit"
+require "{$require}"
+
+class Test{$testname} < Test::Unit::TestCase
+
+    def test
+
+        {$class{instance}} = {$class{name}}.new( { join( ', ', map join(' => ', @$_), @{$class{args}} ) } )
+
+{ for (@tests) {
+    $OUT .= sprintf( qq(        assert_equal( "%s", %s, "%s" )\n),
+        $_->{result},
+        sprintf( $_->{filter} || '%s',
+            sprintf( '%s.%s( %s )', 
+                $class{instance},
+                $_->{method},
+                join( ', ', @{$_->{args}} ),
+            )
+        ),
+        $_->{name},
+    )
+  }
+}
+
+    end
+end
+^;
 }
 
 1;
 
+
 =head1 NAME
 
-Test::Generate::Lang;
+Test::Generate::Lang::Ruby;
 
 =head1 DESCRIPTION
 
-Base class for language templates.
-
+This package defines the template for Ruby unit tests.
 
 =head1 AUTHOR
 
@@ -71,5 +101,3 @@ CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THE PACKAGE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 =cut
-
-__DATA__

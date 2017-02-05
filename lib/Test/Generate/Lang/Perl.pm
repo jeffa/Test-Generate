@@ -8,17 +8,19 @@ sub _generate {
     my $data = shift;
     my $tmpl = Text::Template->new( TYPE => 'STRING', SOURCE => _exec_template() );
     my $perl = $tmpl->fill_in( HASH => $data );
-    #my $results = eval $perl;
+    my @results; eval $perl;
+    $_->{result} = shift @results for @{ $data->{tests} };
     $tmpl = Text::Template->new( TYPE => 'STRING', SOURCE => _test_template() );
     return $tmpl->fill_in( HASH => $data );
 }
+
 
 sub _exec_template {
 return q^
 use {$class{name}};
 my ${$class{instance}} = {$class{name}}->new( { join( ', ', map join(' => ', @$_), @{$class{args}} ) } );
 { for (@tests) {
-    $OUT .= sprintf( qq{print(%s,\$/);\n},
+    $OUT .= sprintf( qq{push \@results, %s;},
         sprintf( $_->{filter} || '%s',
             sprintf( '$%s->%s( %s )', 
                 $class{instance},
@@ -26,13 +28,12 @@ my ${$class{instance}} = {$class{name}}->new( { join( ', ', map join(' => ', @$_
                 join( ', ', @{$_->{args}} ),
             )
         ),
-        $_->{result},
-        $_->{name},
     )
   }
 }
 ^;
 }
+
 
 sub _test_template {
 return q/
@@ -63,6 +64,7 @@ my ${$class{instance}} = new_ok '{$class{name}}', [ { join( ', ', map join(' => 
 }
 
 1;
+
 
 =head1 NAME
 

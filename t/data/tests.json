@@ -37,6 +37,54 @@
             "method": "Dy",
             "args": [ "sin(0)" ],
             "filter": "int( %s )"
+        },
+        {
+            "name": "correct Dx() sin wave 2/5",
+            "method": "Dx",
+            "args": [ ".1" ],
+            "filter": "int( %s )"
+        },
+        {
+            "name": "correct Dy() sin wave 2/5",
+            "method": "Dy",
+            "args": [ "sin(.1)" ],
+            "filter": "int( %s )"
+        },
+        {
+            "name": "correct Dx() sin wave 3/5",
+            "method": "Dx",
+            "args": [ ".2" ],
+            "filter": "int( %s )"
+        },
+        {
+            "name": "correct Dy() sin wave 3/5",
+            "method": "Dy",
+            "args": [ "sin(.2)" ],
+            "filter": "int( %s )"
+        },
+        {
+            "name": "correct Dx() sin wave 4/5",
+            "method": "Dx",
+            "args": [ ".3" ],
+            "filter": "int( %s )"
+        },
+        {
+            "name": "correct Dy() sin wave 4/5",
+            "method": "Dy",
+            "args": [ "sin(.3)" ],
+            "filter": "int( %s )"
+        },
+        {
+            "name": "correct Dx() sin wave 5/5",
+            "method": "Dx",
+            "args": [ ".4" ],
+            "filter": "int( %s )"
+        },
+        {
+            "name": "correct Dy() sin wave 5/5",
+            "method": "Dy",
+            "args": [ "sin(.4)" ],
+            "filter": "int( %s )"
         }
     ]
 }

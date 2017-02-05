@@ -1,12 +1,14 @@
 #!/usr/bin/env perl 
 use strict;
 use warnings FATAL => 'all';
-use Test::Generate;
 
 use JSON;
 use Pod::Usage;
 use Getopt::Long;
 use Data::Dumper;
+
+use lib 'lib'; # TODO: remove before shipping
+use Test::Generate;
 
 GetOptions (
     'lang=s'    => \my $lang,
@@ -16,7 +18,7 @@ GetOptions (
 );
 pod2usage( -verbose => 0 ) if defined $help;
 pod2usage( -verbose => 2 ) if $man;
-$lang ||= 'perl';
+$lang ||= shift || 'perl';
 
 if ($version) {
     print "Test::Generate path: " . $INC{'Test/Generate.pm'}, "\n";
@@ -35,7 +37,7 @@ mktests - generate unit tests.
 
 =head1 SYNOPSIS
 
-mktable method [options]
+mktests language < tests.json
 
  Options:
    --lang       target language to write tests for
@@ -49,7 +51,7 @@ mktable method [options]
 
 =item B<--lang>
 
-Target language to write tests for.
+Target language to write tests for. Default is C<perl>.
 
 =item B<--help>
 
@@ -68,10 +70,10 @@ Prints the versions of the core modules used.
 =head1 EXAMPLES
 
   # write to test file
-  mktests --lang=perl < test.json > test.pl
+  mktests perl < test.json > test.pl
 
   # feed back to interpreter for immediate test run
-  mktests --lang=perl < test.json | perl -T
+  mktests perl < test.json | perl -T
 
 =head1 SEE ALSO
 

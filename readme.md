@@ -22,7 +22,6 @@ $generator = Test::Generate->new;
 $tests = $generator->generate( input => $json, lang => $lang );
 ```
 
-use Math::Window2Viewport;
 Installation
 ------------
 To install this module, you should use CPAN. A good starting

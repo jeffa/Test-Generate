@@ -1,35 +1,42 @@
 {
-    "tests": 13,
-    "include": [ "Math::Window2Viewport" ],
-    "constructor": [
+    "class": {
+        "name": "Math::Window2Viewport",
+        "instance": "mapper",
+        "args": [
+            ["Wb", 0],
+            ["Wt", 1],
+            ["Wl", 0],
+            ["Wr", 1],
+            ["Vb", 9],
+            ["Vt", 0],
+            ["Vl", 0],
+            ["Vr", 9]
+        ]
+    },
+    "tests": [
         {
-            "variable": "mapper",
-            "args": [
-                {"Wb":0},
-                {"Wt":1},
-                {"Wl":0},
-                {"Wr":1},
-                {"Vb":9},
-                {"Vt":0},
-                {"Vl":0},
-                {"Vr":9}
-            ]
+            "name": "correct Dx()",
+            "method": "Dx",
+            "args": [ ".5" ],
+            "filter": "int( %s )"
+        },
+        {
+            "name": "correct Dy()",
+            "method": "Dy",
+            "args": [ ".6" ],
+            "filter": "int( %s )"
+        },
+        {
+            "name": "correct Dx() sin wave 1/5",
+            "method": "Dx",
+            "args": [ "0" ],
+            "filter": "int( %s )"
+        },
+        {
+            "name": "correct Dy() sin wave 1/5",
+            "method": "Dy",
+            "args": [ "sin(0)" ],
+            "filter": "int( %s )"
         }
-    ],
-    "declare": [ "x", "y" ],
-    "roster": [
-        { "test": { } },
-        { "test": { } },
-        { "assign": {
-                "variable":"x",
-                "value":0
-        } },
-        { "assign": {
-                "variable":"y",
-                "value": {
-                    "function":"sin",
-                    "args": [ { "variable":"x" } ]
-                }
-        } }
     ]
 }

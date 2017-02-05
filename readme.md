@@ -43,7 +43,7 @@ Support and Documentation
 After installing, you can find documentation for this module with the
 perldoc command.
 ```
-perldoc Math::Window2Viewport
+perldoc Test::Generate
 ```
 You can also find documentation at [metaCPAN](https://metacpan.org/pod/Test::Generate).
 

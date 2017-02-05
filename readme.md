@@ -1,6 +1,6 @@
 Test-Generate
 =============
-Just another unit test generator.
+Just another unit test generator. [![Build Status](https://api.travis-ci.org/jeffa/Test-Generate.svg?branch=master)](https://travis-ci.org/jeffa/Test-Generate)
 
 Synopsis
 --------

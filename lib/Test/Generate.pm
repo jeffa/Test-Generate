@@ -32,9 +32,16 @@ Test::Generate - Just another unit test generator.
 
   use Test::Generate;
 
+  $generator = Test::Generate->new;
+
+  $tests = $generator->generate( input => $json, lang => $lang );
+
 =head1 DESCRIPTION
 
-This module will make unit tests, yo.
+THIS MODULE IS AN ALPHA RELEASE!
+
+This module will transform test structure and data contained
+in JSON format into unit tests for the target language.
 
 =head1 METHODS
 
@@ -50,11 +57,35 @@ Generates tests.
 
 =back
 
-=head1 EXAMPLE
+=head1 CLI TOOL
 
-The following will demonstrate, yo.
+=over 4
 
-  use Test::Generate;
+=item * C<mktests>
+
+Quickly generate tables without writing a script:
+
+  # write to test file
+  $ mktests --lang=perl < test.json > test.pl
+
+  # feed back to interpreter for immediate test run
+  $ktests --lang=perl < test.json | perl -T
+
+=back
+
+=head1 REQUIRES
+
+=over 4
+
+=item * L<JSON>
+
+Used to parse data that builds out the tests.
+
+=item * L<Text::Template>
+
+Used to build tests from templates.
+
+=back
 
 =head1 AUTHOR
 

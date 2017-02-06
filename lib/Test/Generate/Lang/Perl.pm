@@ -5,7 +5,7 @@ use base 'Test::Generate::Lang';
 use Text::Template;
 
 sub _generate {
-    my $data = _customize_data( shift );
+    my $data = shift;
     my $tmpl = Text::Template->new( TYPE => 'STRING', SOURCE => _exec_template() );
     my $perl = $tmpl->fill_in( HASH => $data );
     my @results; eval $perl;
@@ -14,29 +14,16 @@ sub _generate {
     return $tmpl->fill_in( HASH => $data );
 }
 
-sub _customize_data {
-    my $data = shift;
-    for my $test (@{$data->{tests}}) {
-        $test->{filter} .= '( %s )' if exists $test->{filter};
-        for my $arg (@{$test->{args}}) {
-            $arg->{filter} .= '( "%s" )' if exists $arg->{filter};
-        }
-    }
-    return $data;
-}
-
 sub _exec_template {
 return q^
 use {$class{name}};
 my ${$class{instance}} = {$class{name}}->new( { join( ', ', map join(' => ', @$_), @{$class{args}} ) } );
 { for (@tests) {
     $OUT .= sprintf( qq{push \@results, %s;},
-        sprintf( $_->{filter} || '%s',
-            sprintf( '$%s->%s( %s )', 
-                $class{instance},
-                $_->{method},
-                join( ', ', map sprintf( $_->{filter} || '"%s"', $_->{val} ), @{$_->{args}}),
-            )
+        sprintf( '$%s->%s( %s )', 
+            $class{instance},
+            $_->{method},
+            join( ', ', @{$_->{args}}),
         ),
     )
   }
@@ -58,12 +45,10 @@ my ${$class{instance}} = new_ok '{$class{name}}', [ { join( ', ', map join(' => 
 
 { for (@tests) {
     $OUT .= sprintf( qq(is %s, "%s", "%s";\n),
-        sprintf( $_->{filter} || '%s',
-            sprintf( '$%s->%s( %s )', 
-                $class{instance},
-                $_->{method},
-                join( ', ', map sprintf( $_->{filter} || '"%s"', $_->{val} ), @{$_->{args}}),
-            )
+        sprintf( '$%s->%s( %s )', 
+            $class{instance},
+            $_->{method},
+            join( ', ', @{$_->{args}}),
         ),
         $_->{result},
         $_->{name},

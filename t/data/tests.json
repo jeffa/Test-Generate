@@ -17,74 +17,62 @@
         {
             "name": "correct Dx()",
             "method": "Dx",
-            "args": [ { "val":"0.5" } ],
-            "filter": "int"
+            "args": [ "0.5" ]
         },
         {
             "name": "correct Dy()",
             "method": "Dy",
-            "args": [ { "val":"0.6" } ],
-            "filter": "int"
+            "args": [ "0.6" ]
         },
         {
             "name": "correct Dx() sin wave 1/5",
             "method": "Dx",
-            "args": [ { "val":"0" } ],
-            "filter": "int"
+            "args": [ "0" ]
         },
         {
             "name": "correct Dy() sin wave 1/5",
             "method": "Dy",
-            "args": [ { "val":"0", "filter": "sin" } ],
-            "filter": "int"
+            "args": [ "0" ]
         },
         {
             "name": "correct Dx() sin wave 2/5",
             "method": "Dx",
-            "args": [ { "val":"0.1" } ],
-            "filter": "int"
+            "args": [ "0.1" ]
         },
         {
             "name": "correct Dy() sin wave 2/5",
             "method": "Dy",
-            "args": [ { "val":"0.1", "filter": "sin" } ],
-            "filter": "int"
+            "args": [ "0.1" ]
         },
         {
             "name": "correct Dx() sin wave 3/5",
             "method": "Dx",
-            "args": [ { "val":"0.2" } ],
-            "filter": "int"
+            "args": [ "0.2" ]
         },
         {
             "name": "correct Dy() sin wave 3/5",
             "method": "Dy",
-            "args": [ { "val":"0.2", "filter": "sin" } ],
-            "filter": "int"
+            "args": [ "0.2" ]
         },
         {
             "name": "correct Dx() sin wave 4/5",
             "method": "Dx",
-            "args": [ { "val":"0.3" } ],
-            "filter": "int"
+            "args": [ "0.3" ]
         },
         {
             "name": "correct Dy() sin wave 4/5",
             "method": "Dy",
-            "args": [ { "val":"0.3", "filter": "sin" } ],
-            "filter": "int"
+            "args": [ "0.3" ]
         },
         {
             "name": "correct Dx() sin wave 5/5",
             "method": "Dx",
-            "args": [ { "val":"0.4" } ],
-            "filter": "int"
+            "args": [ "0.4" ]
         },
         {
             "name": "correct Dy() sin wave 5/5",
             "method": "Dy",
-            "args": [ { "val":"0.4", "filter": "sin" } ],
-            "filter": "int"
+            "args": [ "0.4" ]
         }
     ]
 }

@@ -2,44 +2,34 @@ package Test::Generate::Lang::Ruby;
 use strict;
 use warnings;
 use base 'Test::Generate::Lang';
-use Text::Template;
+use Template;
 
 sub _generate {
     my $data = shift;
     ($data->{require}  = $data->{class}{name}) =~ s/::/\//g;
     ($data->{testname} = $data->{class}{name}) =~ s/:://g;
 
-    my $tmpl = Text::Template->new( TYPE => 'STRING', SOURCE => _test_template() );
-    return $tmpl->fill_in( HASH => $data );
+    my $tmpl = Template->new;
+    my $tests;
+    $tmpl->process( _test_template(), $data, \$tests ) or die $tmpl->error;
+    return $tests;
 }
 
 
 sub _test_template {
-return q^
+return \q^
 require "test/unit"
-require "{$require}"
+require "[% require %]"
 
-class Test{$testname} < Test::Unit::TestCase
+class Test[% testname %] < Test::Unit::TestCase
 
     def test
 
-        {$class{instance}} = {$class{name}}.new( { join( ', ', map join(' => ', @$_), @{$class{args}} ) } )
+        [% class.instance %] = [% class.name %].new( [% FOREACH arg IN class.args %][% arg.0 %] => [% arg.1 %], [% END %] )
 
-{ for (@tests) {
-    $OUT .= sprintf( qq(        assert_equal( "%s", %s, "%s" )\n),
-        $_->{result},
-        sprintf( $_->{filter} || '%s',
-            sprintf( '%s.%s( %s )', 
-                $class{instance},
-                $_->{method},
-                join( ', ', @{$_->{args}} ),
-            )
-        ),
-        $_->{name},
-    )
-  }
-}
-
+[%- FOREACH test IN tests %]
+        assert_equal( '[% test.result %]', [% class.instance %][% test.method %]( [% test.args.join(", " ) %] ), '[% test.name %]' )
+[%- END %]
     end
 end
 ^;

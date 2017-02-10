@@ -18,8 +18,8 @@ WriteMakefile(
         'Test::More' => 0,
     },
     PREREQ_PM => {
-        'JSON'              => 2.90,
-        'Text::Template'    => 1.46,
+        'JSON'              => 2.0,
+        'Template'          => 2.0,
     },
     (! eval { ExtUtils::MakeMaker->VERSION(6.46) } ? () :
         (META_ADD => {

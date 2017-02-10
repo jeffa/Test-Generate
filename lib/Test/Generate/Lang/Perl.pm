@@ -2,59 +2,51 @@ package Test::Generate::Lang::Perl;
 use strict;
 use warnings;
 use base 'Test::Generate::Lang';
-use Text::Template;
+use Template;
 
 sub _generate {
     my $data = shift;
-    my $tmpl = Text::Template->new( TYPE => 'STRING', SOURCE => _exec_template() );
-    my $perl = $tmpl->fill_in( HASH => $data );
-    my @results; eval $perl;
+    my $tmpl = Template->new;
+
+    my $perl;
+    $tmpl->process( _exec_template(), $data, \$perl ) or die $tmpl->error;
+    my @results; eval $perl; die $! if $@;
     $_->{result} = shift @results for @{ $data->{tests} };
-    $tmpl = Text::Template->new( TYPE => 'STRING', SOURCE => _test_template() );
-    return $tmpl->fill_in( HASH => $data );
+
+    my $tests;
+    $tmpl->process( _test_template(), $data, \$tests ) or die $tmpl->error;
+    return $tests;
 }
 
 sub _exec_template {
-return q^
-use {$class{name}};
-my ${$class{instance}} = {$class{name}}->new( { join( ', ', map join(' => ', @$_), @{$class{args}} ) } );
-{ for (@tests) {
-    $OUT .= sprintf( qq{push \@results, %s;},
-        sprintf( '$%s->%s( %s )', 
-            $class{instance},
-            $_->{method},
-            join( ', ', @{$_->{args}}),
-        ),
-    )
-  }
-}
+return \q^
+use [% class.name %];
+my $[% class.instance %] = [% class.name %]->new(
+[%- FOREACH arg IN class.args %]
+    [% arg.0 %] => [% arg.1 %],
+[%- END %]
+);
+[% FOREACH test IN tests %]
+push @results, $[% class.instance %]->[% test.method %]( [% test.args.join(", " ) %] );
+[%- END %]
 ^;
 }
 
 
 sub _test_template {
-return q/
+return \q/
 #!perl -T
 use 5.006;
 use strict;
 use warnings;
-use Test::More tests => {@tests + 1};
-use {$class{name}};
+use Test::More tests => [% tests.size + 1 %];
+use [% class.name %];
 
-my ${$class{instance}} = new_ok '{$class{name}}', [ { join( ', ', map join(' => ', @$_), @{$class{args}} ) } ];
+my $[% class.instance %] = new_ok '[% class.name %]', [ [% FOREACH arg IN class.args %][% arg.0 %] => [% arg.1 %], [% END %] ];
 
-{ for (@tests) {
-    $OUT .= sprintf( qq(is %s, "%s", "%s";\n),
-        sprintf( '$%s->%s( %s )', 
-            $class{instance},
-            $_->{method},
-            join( ', ', @{$_->{args}}),
-        ),
-        $_->{result},
-        $_->{name},
-    )
-  }
-}
+[% FOREACH test IN tests %]
+is $[% class.instance %]->[% test.method %]( [% test.args.join(", " ) %] ), '[% test.result %]', '[% test.name %]';
+[%- END %]
 /;
 }
 

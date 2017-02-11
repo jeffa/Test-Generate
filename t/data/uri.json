@@ -1,0 +1,34 @@
+{
+    "class": {
+        "name": "URI",
+        "instance": "u",
+        "args": [ ["'http://www.foo.com/bar.html?baz=qux&action=submit'"] ]
+    },
+    "tests": [
+        {
+            "method": "as_string"
+        },
+        {
+            "method": "scheme"
+        },
+        {
+            "method": "opaque"
+        },
+        {
+            "method": "path"
+        },
+        {
+            "method": "fragment",
+            "filter": "defined"
+        },
+        {
+            "method": "canonical"
+        },
+        {
+            "method": "path"
+        },
+        {
+            "method": "path_query"
+        }
+    ]
+}

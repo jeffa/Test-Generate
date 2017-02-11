@@ -13,10 +13,12 @@
             ["'Vr'", "'9'"]
         ]
     },
+    "filter": "sin",
     "tests": [
         {
             "name": "correct Dx",
             "method": "Dx",
+            "filter": "int",
             "args": [ "'0.5'" ]
         },
         {

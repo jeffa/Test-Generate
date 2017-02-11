@@ -7,11 +7,20 @@ use Test::Generate::Lang::Ruby;
 
 sub _generate {
     my $lang = shift;
+    my $data = shift;
+
+    if (defined $data->{filter}) {
+        $_->{filter} ||= $data->{filter} for @{ $data->{tests} };
+    }
+
+    for (@{ $data->{tests} }) {
+        $_->{name} ||= "method $_->{method}()";
+    }
 
     if ($lang eq 'Perl') {
-        return Test::Generate::Lang::Perl::_generate( @_ );
+        return Test::Generate::Lang::Perl::_generate( $data );
     } elsif ($lang eq 'Ruby') {
-        return Test::Generate::Lang::Ruby::_generate( @_ );
+        return Test::Generate::Lang::Ruby::_generate( $data );
     }
 }
 

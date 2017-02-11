@@ -18,7 +18,7 @@ sub generate {
     my %args = @_;
 
     return Test::Generate::Lang::_generate(
-        ucfirst( lc( $args{lang} ) ),
+        ucfirst( lc( $args{lang} || 'perl' ) ),
         decode_json( $args{input} ),
     );
 }

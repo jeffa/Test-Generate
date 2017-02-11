@@ -26,8 +26,12 @@ my $[% class.instance %] = [% class.name %]->new(
     [% arg.0 %] => [% arg.1 %],
 [%- END %]
 );
-[% FOREACH test IN tests %]
+[%- FOREACH test IN tests %]
+[%- IF test.filter %]
+push @results, [% test.filter %]( $[% class.instance %]->[% test.method %]( [% test.args.join(", " ) %] ) );
+[%- ELSE %]
 push @results, $[% class.instance %]->[% test.method %]( [% test.args.join(", " ) %] );
+[%- END %]
 [%- END %]
 ^;
 }
@@ -44,8 +48,12 @@ use [% class.name %];
 
 my $[% class.instance %] = new_ok '[% class.name %]', [ [% FOREACH arg IN class.args %][% arg.0 %] => [% arg.1 %], [% END %] ];
 
-[% FOREACH test IN tests %]
+[%- FOREACH test IN tests %]
+[%- IF test.filter %]
+is [% test.filter %]( $[% class.instance %]->[% test.method %]( [% test.args.join(", " ) %] ) ), '[% test.result %]', '[% test.name %]';
+[%- ELSE %]
 is $[% class.instance %]->[% test.method %]( [% test.args.join(", " ) %] ), '[% test.result %]', '[% test.name %]';
+[%- END %]
 [%- END %]
 /;
 }

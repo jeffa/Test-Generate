@@ -46,15 +46,17 @@ use warnings;
 use Test::More tests => [% tests.size + 1 %];
 use [% class.name %];
 
-my $[% class.instance %] = new_ok '[% class.name %]', [ [% FOREACH arg IN class.args %][% arg.0 %] => [% arg.1 %], [% END %] ];
+my $[% class.instance %] = new_ok '[% class.name %]', [ [% PROCESS args args=class.args %] ];
 
 [%- FOREACH test IN tests %]
 [%- IF test.filter %]
-is [% test.filter %]( $[% class.instance %]->[% test.method %]( [% test.args.join(", " ) %] ) ), '[% test.result %]', '[% test.name %]';
+is [% test.filter %]( [% PROCESS method c=class t=test %] ), '[% test.result %]', '[% test.name %]';
 [%- ELSE %]
 is $[% class.instance %]->[% test.method %]( [% test.args.join(", " ) %] ), '[% test.result %]', '[% test.name %]';
 [%- END %]
 [%- END %]
+[%- BLOCK method %]$[% c.instance %]->[% t.method %]( [% PROCESS args args=t.args %] )[% END %]
+[%- BLOCK args %][% IF args.1.list.size %][% FOREACH arg IN args %][% arg.0 %] => [% arg.1 %], [% END %][% ELSE %][% args.join(", " ) %][% END %][% END %]
 /;
 }
 

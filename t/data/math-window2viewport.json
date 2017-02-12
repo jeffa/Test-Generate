@@ -13,17 +13,18 @@
             ["'Vr'", "'9'"]
         ]
     },
-    "filter": "sin",
+    "filter": "int",
     "tests": [
         {
             "name": "correct Dx",
             "method": "Dx",
-            "filter": "int",
+            "filter": "sin",
             "args": [ "'0.5'" ]
         },
         {
             "name": "correct Dy",
             "method": "Dy",
+            "filter": "cos",
             "args": [ "'0.6'" ]
         },
         {

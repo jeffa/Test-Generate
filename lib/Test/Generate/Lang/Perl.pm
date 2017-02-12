@@ -21,18 +21,16 @@ sub _generate {
 sub _exec_template {
 return \q^
 use [% class.name %];
-my $[% class.instance %] = [% class.name %]->new(
-[%- FOREACH arg IN class.args %]
-    [% arg.0 %] => [% arg.1 %],
-[%- END %]
-);
+my $[% class.instance %] = [% class.name %]->new( [% PROCESS args args=class.args %] );
 [%- FOREACH test IN tests %]
 [%- IF test.filter %]
-push @results, [% test.filter %]( $[% class.instance %]->[% test.method %]( [% test.args.join(", " ) %] ) );
+push @results, [% test.filter %]( [% PROCESS method c=class t=test %] );
 [%- ELSE %]
-push @results, $[% class.instance %]->[% test.method %]( [% test.args.join(", " ) %] );
+push @results, [% PROCESS method c=class t=test %];
 [%- END %]
 [%- END %]
+[%- BLOCK method %]$[% c.instance %]->[% t.method %]( [% PROCESS args args=t.args %] )[% END %]
+[%- BLOCK args %][% IF args.1.list.size %][% FOREACH arg IN args %][% arg.0 %] => [% arg.1 %], [% END %][% ELSE %][% args.join(", " ) %][% END %][% END %]
 ^;
 }
 

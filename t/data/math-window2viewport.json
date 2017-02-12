@@ -15,67 +15,17 @@
     },
     "filter": "int",
     "tests": [
-        {
-            "name": "correct Dx",
-            "method": "Dx",
-            "filter": "sin",
-            "args": "'0.5'"
-        },
-        {
-            "name": "correct Dy",
-            "method": "Dy",
-            "filter": "cos",
-            "args": "'0.6'"
-        },
-        {
-            "name": "correct Dx 1/5",
-            "method": "Dx",
-            "args": "'0'"
-        },
-        {
-            "name": "correct Dy 1/5",
-            "method": "Dy",
-            "args": "'0'"
-        },
-        {
-            "name": "correct Dx 2/5",
-            "method": "Dx",
-            "args": "'0.1'"
-        },
-        {
-            "name": "correct Dy 2/5",
-            "method": "Dy",
-            "args": "'0.1'"
-        },
-        {
-            "name": "correct Dx 3/5",
-            "method": "Dx",
-            "args": "'0.2'"
-        },
-        {
-            "name": "correct Dy 3/5",
-            "method": "Dy",
-            "args": "'0.2'"
-        },
-        {
-            "name": "correct Dx 4/5",
-            "method": "Dx",
-            "args": "'0.3'"
-        },
-        {
-            "name": "correct Dy 4/5",
-            "method": "Dy",
-            "args": "'0.3'"
-        },
-        {
-            "name": "correct Dx 5/5",
-            "method": "Dx",
-            "args": "'0.4'"
-        },
-        {
-            "name": "correct Dy 5/5",
-            "method": "Dy",
-            "args": "'0.4'"
-        }
+        { "method": "Dx", "args": "'0.5'", "filter": "sin" },
+        { "method": "Dy", "args": "'0.6'", "filter": "cos" },
+        { "method": "Dx", "args": "'0'" },
+        { "method": "Dy", "args": "'0'" },
+        { "method": "Dx", "args": "'0.1'" },
+        { "method": "Dy", "args": "'0.1'" },
+        { "method": "Dx", "args": "'0.2'" },
+        { "method": "Dy", "args": "'0.2'" },
+        { "method": "Dx", "args": "'0.3'" },
+        { "method": "Dy", "args": "'0.3'" },
+        { "method": "Dx", "args": "'0.4'" },
+        { "method": "Dy", "args": "'0.4'" }
     ]
 }

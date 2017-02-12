@@ -13,8 +13,8 @@ sub _generate {
         $_->{filter} ||= $data->{filter} for @{ $data->{tests} };
     }
 
-    for (@{ $data->{tests} }) {
-        $_->{name} ||= "method $_->{method}()";
+    for (0 .. $#{ $data->{tests} }) {
+        $data->{tests}[$_]{name} ||= sprintf "unit test %02d - %s()", $_ + 1, $data->{tests}[$_]{method};
     }
 
     if ($lang eq 'Perl') {

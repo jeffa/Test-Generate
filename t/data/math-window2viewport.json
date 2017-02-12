@@ -3,14 +3,14 @@
         "name": "Math::Window2Viewport",
         "instance": "mapper",
         "args": [
-            ["'Wb'", "'0'"],
-            ["'Wt'", "'1'"],
-            ["'Wl'", "'0'"],
-            ["'Wr'", "'1'"],
-            ["'Vb'", "'9'"],
-            ["'Vt'", "'0'"],
-            ["'Vl'", "'0'"],
-            ["'Vr'", "'9'"]
+            {"'Wb'": "'0'"},
+            {"'Wt'": "'1'"},
+            {"'Wl'": "'0'"},
+            {"'Wr'": "'1'"},
+            {"'Vb'": "'9'"},
+            {"'Vt'": "'0'"},
+            {"'Vl'": "'0'"},
+            {"'Vr'": "'9'"}
         ]
     },
     "filter": "int",
@@ -19,63 +19,63 @@
             "name": "correct Dx",
             "method": "Dx",
             "filter": "sin",
-            "args": [ "'0.5'" ]
+            "args": "'0.5'"
         },
         {
             "name": "correct Dy",
             "method": "Dy",
             "filter": "cos",
-            "args": [ "'0.6'" ]
+            "args": "'0.6'"
         },
         {
             "name": "correct Dx 1/5",
             "method": "Dx",
-            "args": [ "'0'" ]
+            "args": "'0'"
         },
         {
             "name": "correct Dy 1/5",
             "method": "Dy",
-            "args": [ "'0'" ]
+            "args": "'0'"
         },
         {
             "name": "correct Dx 2/5",
             "method": "Dx",
-            "args": [ "'0.1'" ]
+            "args": "'0.1'"
         },
         {
             "name": "correct Dy 2/5",
             "method": "Dy",
-            "args": [ "'0.1'" ]
+            "args": "'0.1'"
         },
         {
             "name": "correct Dx 3/5",
             "method": "Dx",
-            "args": [ "'0.2'" ]
+            "args": "'0.2'"
         },
         {
             "name": "correct Dy 3/5",
             "method": "Dy",
-            "args": [ "'0.2'" ]
+            "args": "'0.2'"
         },
         {
             "name": "correct Dx 4/5",
             "method": "Dx",
-            "args": [ "'0.3'" ]
+            "args": "'0.3'"
         },
         {
             "name": "correct Dy 4/5",
             "method": "Dy",
-            "args": [ "'0.3'" ]
+            "args": "'0.3'"
         },
         {
             "name": "correct Dx 5/5",
             "method": "Dx",
-            "args": [ "'0.4'" ]
+            "args": "'0.4'"
         },
         {
             "name": "correct Dy 5/5",
             "method": "Dy",
-            "args": [ "'0.4'" ]
+            "args": "'0.4'"
         }
     ]
 }

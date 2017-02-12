@@ -17,22 +17,25 @@ sub _generate {
 
 
 sub _test_template {
-return \q^
-require "test/unit"
+return \<<END_TEMPLATE;
 require "[% require %]"
-
-class Test[% testname %] < Test::Unit::TestCase
-
-    def test
-
-        [% class.instance %] = [% class.name %].new( [% FOREACH arg IN class.args %][% arg.0 %] => [% arg.1 %], [% END %] )
-
+[% class.instance %] = [% class.name %].new( [% FOREACH arg IN class.args %][% arg.0 %] => [% arg.1 %], [% END %] )
+puts %q^require "test/unit"^
+puts %q^require "[% require %]"^
+puts %q^^
+puts %q^class Test[% testname %] < Test::Unit::TestCase^
+puts %q^^
+puts %q^    def test^
+puts %q^^
+puts %q^        [% class.instance %] = [% class.name %].new( [% FOREACH arg IN class.args %][% arg.0 %] => [% arg.1 %], [% END %] )^
+puts %q^^
 [%- FOREACH test IN tests %]
-        assert_equal( '[% test.result %]', [% class.instance %][% test.method %]( [% test.args.join(", " ) %] ), '[% test.name %]' )
+puts %q^        assert_equal( '^ + [% PROCESS method c=class t=test %] + %q^', [% PROCESS method c=class t=test %], '[% test.name %]' )^
 [%- END %]
-    end
-end
-^;
+puts %q^    end^
+puts %q^end^
+[%- BLOCK method %][% c.instance %].[% t.method %]( [% t.args.join(", " ) %] )[% END %]
+END_TEMPLATE
 }
 
 1;

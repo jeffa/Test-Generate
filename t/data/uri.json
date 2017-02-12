@@ -2,7 +2,7 @@
     "class": {
         "name": "URI",
         "instance": "u",
-        "args": [ ["'http://www.foo.com/bar.html?baz=qux&action=submit'"] ]
+        "args": [ "'http://www.foo.com/bar.html?baz=qux&action=submit'" ]
     },
     "tests": [
         {

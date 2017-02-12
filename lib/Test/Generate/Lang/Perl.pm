@@ -43,6 +43,7 @@ sub _blocks {
 sub _exec_template {
 return \( q^
 use [% class.name %];
+[%- FOREACH line IN defined %][% line %][% END %]
 my $[% class.instance %] = [% class.name %]->new( [% PROCESS args args=class.args %] );
 [%- FOREACH test IN tests %]
 [%- IF test.filter %]
@@ -63,6 +64,10 @@ use strict;
 use warnings;
 use Test::More tests => [% tests.size + 1 %];
 use [% class.name %];
+
+[%- FOREACH line IN defined %]
+[% line %];
+[%- END %]
 
 my $[% class.instance %] = new_ok '[% class.name %]', [ [% PROCESS args args=class.args %] ];
 

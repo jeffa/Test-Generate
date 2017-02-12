@@ -3,9 +3,10 @@
         "name": "CGI",
         "instance": "q"
     },
+    "defined": [ "sub scrub { $_[0] =~ s/\\n//g; $_[0] }" ],
     "tests": [
         {
-            "filter": "map { s/\\s+//; $_ } ",
+            "filter": "scrub",
             "method": "header"
         },
         {

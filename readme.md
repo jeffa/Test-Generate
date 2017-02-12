@@ -21,6 +21,7 @@ $generator = Test::Generate->new;
 
 $tests = $generator->generate( input => $json, lang => $lang );
 ```
+See [/t/data/](/t/data/) for example JSON source files.
 
 Installation
 ------------

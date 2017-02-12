@@ -1,0 +1,12 @@
+{
+    "class": {
+        "name": "HTML::AutoTag",
+        "instance": "auto"
+    },
+    "tests": [
+        {
+            "method": "tag",
+            "args": [ "'tag'", "'p'", "'cdata'", "'hello html'" ]
+        }
+    ]
+}

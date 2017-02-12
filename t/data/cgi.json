@@ -1,0 +1,30 @@
+{
+    "class": {
+        "name": "CGI",
+        "instance": "q"
+    },
+    "tests": [
+        {
+            "filter": "map { s/\\s+//; $_ } ",
+            "method": "header"
+        },
+        {
+            "method": "start_html"
+        },
+        {
+            "method": "table"
+        },
+        {
+            "method": "p"
+        },
+        {
+            "method": "h1"
+        },
+        {
+            "method": "table"
+        },
+        {
+            "method": "scrolling_list"
+        }
+    ]
+}

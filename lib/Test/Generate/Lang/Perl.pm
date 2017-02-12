@@ -10,7 +10,7 @@ sub _generate {
 
     my $perl;
     $tmpl->process( _exec_template(), $data, \$perl ) or die $tmpl->error;
-    my @results; eval $perl; die $! if $@;
+    my @results; eval $perl; warn $! if $@;
     $_->{result} = shift @results for @{ $data->{tests} };
 
     my $tests;
@@ -18,8 +18,30 @@ sub _generate {
     return $tests;
 }
 
+
+sub _blocks {
+    my $text = q^
+        [% BLOCK method %]
+            $[% c.instance %]->[% t.method %]( [% PROCESS args args=t.args %] )
+        [% END %]
+        [% BLOCK args %]
+            [% IF args.1.list.size %]
+                [% FOREACH arg IN args %]
+                    [% arg.0 %] => [% arg.1 %][% IF !loop.last %], [% END %]
+                [% END %]
+            [% ELSE %]
+                [% args.join(", " ) %]
+            [% END %]
+        [% END %]
+    ^;
+    $text =~ s/\s{2,}//g;
+    $text =~ s/\n//g;
+    return $text;
+}
+
+
 sub _exec_template {
-return \q^
+return \( q^
 use [% class.name %];
 my $[% class.instance %] = [% class.name %]->new( [% PROCESS args args=class.args %] );
 [%- FOREACH test IN tests %]
@@ -29,14 +51,12 @@ push @results, [% test.filter %]( [% PROCESS method c=class t=test %] );
 push @results, [% PROCESS method c=class t=test %];
 [%- END %]
 [%- END %]
-[%- BLOCK method %]$[% c.instance %]->[% t.method %]( [% PROCESS args args=t.args %] )[% END %]
-[%- BLOCK args %][% IF args.1.list.size %][% FOREACH arg IN args %][% arg.0 %] => [% arg.1 %], [% END %][% ELSE %][% args.join(", " ) %][% END %][% END %]
-^;
+^ . _blocks() );
 }
 
 
 sub _test_template {
-return \q/
+return \( q^
 #!perl -T
 use 5.006;
 use strict;
@@ -53,9 +73,7 @@ is [% test.filter %]( [% PROCESS method c=class t=test %] ), '[% test.result %]'
 is $[% class.instance %]->[% test.method %]( [% test.args.join(", " ) %] ), '[% test.result %]', '[% test.name %]';
 [%- END %]
 [%- END %]
-[%- BLOCK method %]$[% c.instance %]->[% t.method %]( [% PROCESS args args=t.args %] )[% END %]
-[%- BLOCK args %][% IF args.1.list.size %][% FOREACH arg IN args %][% arg.0 %] => [% arg.1 %], [% END %][% ELSE %][% args.join(", " ) %][% END %][% END %]
-/;
+^ . _blocks() );
 }
 
 1;

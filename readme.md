@@ -6,10 +6,12 @@ Synopsis
 --------
 ```
 # write to test file
-mktests --lang=perl < test.json > test.pl
+mktests perl < test.json > test.pl
+
+mktests ruby < test.json > test.rb
 
 # feed back to interpreter for immediate test run
-mktests --lang=perl < test.json | perl -T
+mktests perl < test.json | perl -T
 ```
 
 Backend API

@@ -1,7 +1,8 @@
 {
     "class": {
         "name": "HTML::AutoTag",
-        "instance": "auto"
+        "instance": "auto",
+        "args": [ { "'indent'": "'  '" } ]
     },
     "tests": [
         {

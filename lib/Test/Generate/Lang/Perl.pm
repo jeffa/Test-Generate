@@ -11,6 +11,7 @@ sub _generate {
     my $perl;
     $tmpl->process( _exec_template(), $data, \$perl ) or die $tmpl->error;
     my @results; eval $perl; warn $! if $@;
+print $perl, "\n\n";
     $_->{result} = shift @results for @{ $data->{tests} };
 
     my $tests;
@@ -25,7 +26,7 @@ sub _blocks {
             $[% c.instance %]->[% t.method %]( [% PROCESS args args=t.args %] )
         [% END %]
         [% BLOCK args %]
-            [% IF args.1.pairs.size %]
+            [% IF args.0.pairs.size %]
                 [% FOREACH arg IN args %]
                     [% FOREACH pair IN arg.pairs %]
                         [% pair.key %] => [% pair.value %]

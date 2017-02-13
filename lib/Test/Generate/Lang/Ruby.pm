@@ -16,10 +16,34 @@ sub _generate {
 }
 
 
+sub _blocks {
+    my $text = q^
+        [% BLOCK method %]
+            [% c.instance %].[% t.method %]( [% PROCESS args args=t.args %] )
+        [% END %]
+        [% BLOCK args %]
+            [% IF args.0.pairs.size %]
+                [% FOREACH arg IN args %]
+                    [% FOREACH pair IN arg.pairs %]
+                        [% pair.key %] => [% pair.value %]
+                    [% END %]
+                    [% IF !loop.last %], [% END %]
+                [% END %]
+            [% ELSE %]
+                [% args.join(", " ) %]
+            [% END %]
+        [% END %]
+    ^;
+    $text =~ s/\s{2,}//g;
+    $text =~ s/\n//g;
+    return $text;
+}
+
+
 sub _test_template {
-return \<<END_TEMPLATE;
+return \( <<END_TEMPLATE
 require "[% require %]"
-[% class.instance %] = [% class.name %].new( [% FOREACH arg IN class.args %][% arg.0 %] => [% arg.1 %], [% END %] )
+[% class.instance %] = [% class.name %].new( [% PROCESS args args=class.args %] )
 puts %q^require "test/unit"^
 puts %q^require "[% require %]"^
 puts %q^^
@@ -27,15 +51,15 @@ puts %q^class Test[% testname %] < Test::Unit::TestCase^
 puts %q^^
 puts %q^    def test^
 puts %q^^
-puts %q^        [% class.instance %] = [% class.name %].new( [% FOREACH arg IN class.args %][% arg.0 %] => [% arg.1 %], [% END %] )^
+puts %q^        [% class.instance %] = [% class.name %].new( [% PROCESS args args=class.args %] )^
 puts %q^^
 [%- FOREACH test IN tests %]
 puts %q^        assert_equal( '^ + [% PROCESS method c=class t=test %] + %q^', [% PROCESS method c=class t=test %], '[% test.name %]' )^
 [%- END %]
 puts %q^    end^
 puts %q^end^
-[%- BLOCK method %][% c.instance %].[% t.method %]( [% t.args.join(", " ) %] )[% END %]
 END_TEMPLATE
+ . _blocks() );
 }
 
 1;

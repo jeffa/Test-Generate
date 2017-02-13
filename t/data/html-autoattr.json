@@ -1,0 +1,14 @@
+{
+    "class": {
+        "name": "HTML::AutoAttr",
+        "instance": "attr",
+        "args": [ { "'class'": "['foo','bar','baz','qux']" } ]
+    },
+    "tests": [
+        { "method": "to_s" },
+        { "method": "to_s" },
+        { "method": "to_s" },
+        { "method": "to_s" },
+        { "method": "to_s" }
+    ]
+}

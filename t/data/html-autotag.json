@@ -6,7 +6,10 @@
     "tests": [
         {
             "method": "tag",
-            "args": [ "'tag'", "'p'", "'cdata'", "'hello html'" ]
+            "args": [
+                { "'tag'": "'p'" },
+                { "'cdata'": "'hello html'" }
+            ]
         }
     ]
 }

@@ -78,7 +78,7 @@ my $[% class.instance %] = new_ok '[% class.name %]', [ [% PROCESS args args=cla
 [%- IF test.filter %]
 is [% test.filter %]( [% PROCESS method c=class t=test %] ), '[% test.result %]', '[% test.name %]';
 [%- ELSE %]
-is $[% class.instance %]->[% test.method %]( [% test.args.join(", " ) %] ), '[% test.result %]', '[% test.name %]';
+is [% PROCESS method c=class t=test %], '[% test.result %]', '[% test.name %]';
 [%- END %]
 [%- END %]
 ^ . _blocks() );

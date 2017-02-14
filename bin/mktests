@@ -7,7 +7,9 @@ use Pod::Usage;
 use Getopt::Long;
 use Data::Dumper;
 
-use lib 'lib'; # TODO: remove before shipping
+# TODO: remove following 2 lines before shipping
+use FindBin;
+use lib "$FindBin::Bin/../lib";
 use Test::Generate;
 
 GetOptions (

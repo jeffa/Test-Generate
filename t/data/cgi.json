@@ -3,7 +3,7 @@
         "name": "CGI",
         "instance": "q"
     },
-    "defined": [ "sub scrub { $_[0] =~ s/\\n//g; $_[0] }" ],
+    "defined": [ "sub scrub { $_[0] =~ s/\\r?\\n//g; $_[0] }" ],
     "tests": [
         {
             "filter": "scrub",

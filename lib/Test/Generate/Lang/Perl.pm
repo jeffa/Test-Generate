@@ -11,7 +11,6 @@ sub _generate {
     my $perl;
     $tmpl->process( _exec_template(), $data, \$perl ) or die $tmpl->error;
     my @results; eval $perl; warn $! if $@;
-print $perl, "\n\n";
     $_->{result} = shift @results for @{ $data->{tests} };
 
     my $tests;
